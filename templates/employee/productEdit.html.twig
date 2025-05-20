@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Bewerken{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Product bewerken</h1>
+
+        {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.price) }}
+        </div>
+        <button class="btn btn-primary">Opslaan</button>
+        <a href="{{ path('employeeProducts') }}" class="btn btn-secondary">Annuleren</a>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

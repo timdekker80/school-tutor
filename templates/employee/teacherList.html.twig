@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Docenten overzicht{% endblock %}
+
+{% block body %}
+    <h1>Docenten overzicht</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Naam</th>
+            <th>Acties</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>
+                    <a href="{{ path('employee_teacher_lessons', {id: teacher.id}) }}" class="btn btn-info btn-sm">Lessen bekijken</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Geen docenten gevonden.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('employee_teacher_new') }}" class="btn btn-success mt-3">Nieuwe docent aanmaken</a>
+{% endblock %}

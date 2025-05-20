@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Lessen van docent {{ teacher.email }}</h1>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Vak</th>
+            <th>Klaslokaal</th>
+            <th>Student</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in lessons %}
+            <tr>
+                <td>{{ lesson.date ? lesson.date|date('d-m-Y H:i') : 'Onbekend' }}</td>
+                <td>{{ lesson.subject }}</td>
+                <td>{{ lesson.classroom }}</td>
+                <td>{{ lesson.student.email }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Geen lessen gevonden voor deze docent.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('employee_teacher_list') }}" class="btn btn-secondary mt-3">Terug naar docentenlijst</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-3">My Profile</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+        </ul>
+
+        <a href="{{ path('student_profile_edit') }}" class="btn btn-primary mt-3">Edit Profile</a>
+    </div>
+{% endblock %}

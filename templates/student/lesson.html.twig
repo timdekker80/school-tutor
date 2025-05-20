@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Lessons{% endblock %}
+
+{% block body %}
+    <h1>My Lessons</h1>
+
+{#    <a href="{{ path('lesson_new') }}" class="btn btn-primary mb-3">+ New Lesson</a>#}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Teacher</th>
+            <th>Subject</th>
+            <th>Classroom</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in lessons %}
+            <tr>
+                <td>{{ lesson.date|date('Y-m-d H:i') }}</td>
+                <td>{{ lesson.teacher.email }}</td>
+                <td>{{ lesson.subject }}</td>
+                <td>{{ lesson.classroom }}</td>
+                <td>
+                    <a href="{{ path('student_lesson_show', {'id': lesson.id}) }}" class="btn btn-sm btn-outline-info">View</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">No lessons found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

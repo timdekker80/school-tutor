@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block body %}
+    <h1>Your Cart</h1>
+
+    {% if items is empty %}
+        <p>Your cart is empty.</p>
+        <a href="{{ path('product_list') }}" class="btn btn-secondary">Continue shopping</a>
+    {% else %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price each</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>€ {{ item.product.price|number_format(2, '.', ',') }}</td>
+                    <td>€ {{ item.subtotal|number_format(2, '.', ',') }}</td>
+                    <td>
+                        <a href="{{ path('cart_remove', {'id': item.product.id}) }}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Total: € {{ total|number_format(2, '.', ',') }}</h3>
+
+        <a href="{{ path('product_list') }}" class="btn btn-secondary">Continue shopping</a>
+        <!-- Add checkout button here -->
+    {% endif %}
+{% endblock %}

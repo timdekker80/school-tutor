@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Webshop beheer{% endblock %}
+
+{% block body %}
+    <h1>Webshop beheer</h1>
+
+    <a href="{{ path('employee_product_new') }}" class="btn btn-primary mb-3">Nieuw product toevoegen</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Beschrijving</th>
+            <th>Acties</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>€ {{ product.price|number_format(2, ',', '.') }}</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    {# Voeg eventueel edit/delete links toe hier #}
+                    <a href="{{ path('employee_product_edit', { id: product.id }) }}" class="btn btn-sm btn-warning">Bewerken</a>
+
+                    <form action="{{ path('employee_product_delete', { id: product.id }) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('Weet je zeker dat je dit product wilt verwijderen?')">Verwijderen</button>
+                    </form>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Geen producten gevonden.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

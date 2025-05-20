@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nieuwe docent aanmaken{% endblock %}
+
+{% block body %}
+    <h1>Nieuwe docent aanmaken</h1>
+
+    {{ form_start(teacherForm) }}
+    {{ form_row(teacherForm.email) }}
+    {{ form_row(teacherForm.plainPassword) }}
+{#    {{ form_row(teacherForm.firstName) }}#}
+{#    {{ form_row(teacherForm.lastName) }}#}
+    {# Voeg andere velden toe als nodig #}
+
+    <button class="btn btn-primary mt-3">Docent aanmaken</button>
+    {{ form_end(teacherForm) }}
+
+    <a href="{{ path('employee_teacher_list') }}" class="btn btn-secondary mt-3">Terug naar docentenlijst</a>
+{% endblock %}

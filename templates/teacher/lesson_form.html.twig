@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Lesson Form{% endblock %}
+{% block body %}
+{#    <h1>{{ form.vars.value.id ? 'Edit' : 'Create' }} Lesson</h1>#}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary mt-3">Save</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('teacher_schedule') }}" class="btn btn-secondary mt-3">Back to My Lessons</a>
+{% endblock %}

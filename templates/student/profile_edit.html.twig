@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Edit My Profile</h1>
+
+        {{ form_start(profileForm) }}
+
+        <div class="mb-3">
+            {{ form_label(profileForm.email) }}
+            {{ form_widget(profileForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(profileForm.email) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(profileForm.plainPassword) }}
+            {{ form_widget(profileForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(profileForm.plainPassword) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+
+        {{ form_end(profileForm) }}
+
+
+
+        <a href="{{ path('student_profile') }}" class="btn btn-link mt-3">Cancel</a>
+    </div>
+{% endblock %}

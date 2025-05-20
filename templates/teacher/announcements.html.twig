@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2 class="text-xl font-bold mt-8">Ziekmeldingen</h2>
+    <ul class="mt-2 space-y-2">
+        {% for report in sickReports %}
+            <li class="p-4 bg-gray-100 rounded shadow">
+                <strong>{{ report.teacher.email }}</strong> meldde zich ziek op {{ report.date|date('d-m-Y H:i') }} <br>
+                <em>{{ report.message }}</em>
+            </li>
+        {% else %}
+            <li class="text-gray-500">Geen ziekmeldingen gevonden.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+

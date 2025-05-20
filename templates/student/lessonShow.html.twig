@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lesson Details{% endblock %}
+
+{% block body %}
+    <h1>Lesson Details</h1>
+
+    <ul>
+        <li><strong>Date:</strong> {{ lesson.date|date('Y-m-d H:i') }}</li>
+        <li><strong>Teacher:</strong> {{ lesson.teacher.email }}</li>
+        <li><strong>Subject:</strong> {{ lesson.subject }}</li>
+        <li><strong>Classroom:</strong> {{ lesson.classroom }}</li>
+    </ul>
+
+    <a href="{{ path('student_lessons') }}" class="btn btn-primary">Back to list</a>
+{% endblock %}
