@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmployeeController!{% endblock %}
+
+{% block body %}
+
+    <h1>Aankondigingen voor Studenten</h1>
+
+    {% if announcements is empty %}
+        <p>Er zijn op dit moment geen aankondigingen voor studenten.</p>
+    {% else %}
+        <ul>
+            {% for announcement in announcements %}
+                <li style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
+                    <strong>Titel:</strong> {{ announcement.title }}<br>
+                    <strong>Tekst:</strong> {{ announcement.content }}<br>
+                    <strong>Gemaakt door:</strong> {{ announcement.user.email }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

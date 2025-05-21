@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Announcement;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\ProductTypeForm;
 use App\Form\StudentProfileTypeForm;
 use App\Form\TeacherRegistrationTypeForm;
 use App\Form\UserTypeForm;
+use App\Repository\AnnouncementRepository;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -194,5 +196,17 @@ final class EmployeeController extends AbstractController
         $this->addFlash('success', 'Boek is gewist');
 
         return $this->redirectToRoute('employee_user_list');
+    }
+
+    #[Route('/employee/announcement', name: 'employee_user_announcement')]
+    public function announcementList(AnnouncementRepository $announcementRepo): Response
+    {
+        $announcements = $announcementRepo->findBy([
+            'targetRole' => 'ROLE_STUDENT'
+        ]);
+
+        return $this->render('employee/announcement.html.twig', [
+            'announcements' => $announcements,
+        ]);
     }
 }
