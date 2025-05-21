@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_STUDENT or ROLE_TEACHER or ROLE_EMPLOYEE')]
+#[IsGranted('ROLE_STUDENT')]
 class StudentController extends AbstractController
 {
     #[Route('/student/profile', name: 'student_profile')]

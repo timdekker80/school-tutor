@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\ProductTypeForm;
+use App\Form\StudentProfileTypeForm;
 use App\Form\TeacherRegistrationTypeForm;
+use App\Form\UserTypeForm;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -145,5 +147,52 @@ final class EmployeeController extends AbstractController
             'lessons' => $lessons,
         ]);
     }
+    #[Route('/employee/user/list', name: 'employee_user_list')]
+    public function userList(EntityManagerInterface $em): Response
+    {
+        $users = $em->getRepository(User::class)->findAll();
 
+
+        return $this->render('employee/userList.html.twig', [
+            'users' => $users,        ]);
+    }
+    #[Route('/employee/user/list/{id}', name: 'employee_user_list_edit')]
+    public function userListEdit(User $users, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $form = $this->createForm(UserTypeForm::class, $users);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('plainPassword')->getData();
+
+            if ($newPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($users, $newPassword);
+                $users->setPassword($hashedPassword);
+            }
+
+            $em->flush();
+
+            $this->addFlash('success', 'Gebruiker succesvol bijgewerkt.');
+            return $this->redirectToRoute('employee_user_list');
+        }
+
+        return $this->render('employee/userListEdit.html.twig', [
+            'users' => $users,
+            'UserTypeForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/employee/user/delete/{id}', name: 'employee_user_list_delete')]
+    public function userListDelete(EntityManagerInterface $entityManager, User $user): Response
+    {
+        $entityManager->remove($user);
+
+        //We voeren de statements uit (het wordt nog gedelete)
+        $entityManager->flush();
+
+        //Uiteraard zetten we een flash-message
+        $this->addFlash('success', 'Boek is gewist');
+
+        return $this->redirectToRoute('employee_user_list');
+    }
 }
