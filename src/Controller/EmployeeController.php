@@ -203,7 +203,7 @@ final class EmployeeController extends AbstractController
     {
         $announcements = $announcementRepo->findBy([
             'targetRole' => 'ROLE_STUDENT'
-        ]);
+        ]); 
 
         return $this->render('employee/announcement.html.twig', [
             'announcements' => $announcements,
